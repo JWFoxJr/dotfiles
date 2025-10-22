@@ -1,0 +1,5 @@
+[user]
+	name = Joe Fox
+	email = joe@jwfoxjr.com
+[init]
+	defaultBranch = main
