@@ -1,0 +1,13 @@
+# Ignore everything in this directory
+*
+
+# But keep ignore files themselves
+!.gitignore
+
+# Allowlisted plugins (directories) — add more lines like these as needed
+!/tpm/
+!/catppuccin/
+!/catppuccin/tmux/
+!/tmux-battery/
+!/tmux-cpu/
+

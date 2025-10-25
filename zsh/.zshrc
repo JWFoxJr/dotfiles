@@ -130,3 +130,6 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
+alias less=bat
+ eval $(thefuck --alias)
