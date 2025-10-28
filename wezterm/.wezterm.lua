@@ -66,6 +66,12 @@ config.keys = {
 	},
 }
 
+table.insert(config.keys, {
+	key = "a",
+	mods = "LEADER|CTRL",
+	action = wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
+})
+
 -- Show workspace name in window title
 wezterm.on("format-window-title", function(tab, pane, tabs, panes, cfg)
 	local ws = wezterm.mux.get_active_workspace()
