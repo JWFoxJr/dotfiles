@@ -16,7 +16,7 @@ config.color_scheme = "Catppuccin Mocha"
 config.window_decorations = "TITLE | RESIZE"
 
 -- 🖋 Fonts (simple = cheaper)
-config.font = wezterm.font("MonaspiceKR Nerd Font")
+config.font = wezterm.font("Hack Nerd Font")
 config.font_size = 14
 
 wezterm.on("gui-startup", function(cmd)
