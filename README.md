@@ -9,6 +9,7 @@ Each application (e.g. `nvim`, `zsh`, `wezterm`, `tmux`, etc.) is a self-contain
 
 ```
 dotfiles/
+├── bat/.config/bat         →   ~/.config/bat/
 ├── git/                    →   ~/.gitconfig
 ├── nvim/.config/nvim/      →   ~/.config/nvim/
 ├── thefuck/.config/thefuck →   ~/.config/thefuck/
@@ -22,7 +23,7 @@ dotfiles/
 └── .stow-local-ignore
 ```
 
-Each top-level directory corresponds to one *stowable module*.
+Each top-level directory corresponds to one _stowable module_.
 
 ---
 
@@ -31,16 +32,19 @@ Each top-level directory corresponds to one *stowable module*.
 1. Install **GNU Stow**:
 
    **macOS**
+
    ```bash
    brew install stow
    ```
 
    **Debian / Ubuntu / Mint**
+
    ```bash
    sudo apt install stow
    ```
 
    **Fedora / RHEL / Rocky / Alma**
+
    ```bash
    sudo dnf install stow
    ```
@@ -48,22 +52,26 @@ Each top-level directory corresponds to one *stowable module*.
 2. Clone this repository (with submodules):
 
    ```bash
-   git clone --recurse-submodules https://github.com/JWFoxJr/dotfiles.git ~/dotfiles
-   cd ~/dotfiles
+   git clone --recurse-submodules https://github.com/JWFoxJr/dotfiles.git ~/.dotfiles
+   cd ~/.dotfiles
    ```
 
 ---
 
 ## 🚀 Usage
 
-### Stow *everything*
+### Stow _everything_
+
 Symlink **all** managed configs into your home directory:
+
 ```bash
 stow --target=$HOME */
 ```
 
-### Un-stow *everything*
+### Un-stow _everything_
+
 Remove all symlinks created by Stow:
+
 ```bash
 stow --target=$HOME -D */
 ```
@@ -73,13 +81,17 @@ stow --target=$HOME -D */
 ---
 
 ### Stow an individual package
+
 Example: only link your Neovim setup
+
 ```bash
 stow --target=$HOME nvim
 ```
 
 ### Un-stow an individual package
+
 Example: remove only the Neovim symlinks
+
 ```bash
 stow --target=$HOME -D nvim
 ```
@@ -103,6 +115,7 @@ git submodule foreach git pull origin main
 
 `.stow-local-ignore` prevents Stow from linking unwanted files such as `.git`, `.gitmodules`, and plugin directories.  
 Typical contents:
+
 ```
 .git/
 .gitmodules
@@ -115,11 +128,13 @@ LICENSE
 ## 💡 Tips
 
 - Run `stow -n` (“dry run”) to preview symlink actions:
+
   ```bash
   stow -n --target=$HOME zsh
   ```
 
 - To restow (force re-link after updates):
+
   ```bash
   stow --restow --target=$HOME nvim
   ```
