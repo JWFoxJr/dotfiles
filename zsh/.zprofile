@@ -15,7 +15,7 @@ if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
 fi
 
 if [ ! -x "/usr/local/bin/brew" ] && \
-   [ ! -x "/opt/hombrew/bin/brew" ] && \
+   [ ! -x "/opt/homebrew/bin/brew" ] && \
    [ ! -x "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
   echo "Homebrew not found, installing..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
