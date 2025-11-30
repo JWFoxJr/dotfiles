@@ -52,7 +52,7 @@ Each top-level directory corresponds to one _stowable module_.
 2. Clone this repository (with submodules):
 
    ```bash
-   git clone --recurse-submodules https://github.com/JWFoxJr/dotfiles.git ~/.dotfiles
+   git clone --recurse-submodules git@github.com:JWFoxJr/dotfiles.git ~/.dotfiles
    cd ~/.dotfiles
    ```
 
