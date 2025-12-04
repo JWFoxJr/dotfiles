@@ -2,14 +2,10 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local config = wezterm.config_builder()
 
--- 🧊 Keep it cool
-config.front_end = "Software" -- CPU rendering, avoids GPU wakeups
-config.animation_fps = 30
-config.max_fps = 30
+-- 🧊 Make it look cool
 config.window_background_opacity = 0.8
 config.macos_window_background_blur = 20
-config.use_fancy_tab_bar = false -- simpler tab bar, fewer redraws
-config.hide_tab_bar_if_only_one_tab = false
+config.hide_tab_bar_if_only_one_tab = true
 
 -- 🪟 Basic chrome
 config.color_scheme = "Catppuccin Mocha"
@@ -19,10 +15,13 @@ config.window_decorations = "TITLE | RESIZE"
 config.font = wezterm.font("Hack Nerd Font")
 config.font_size = 14
 
+-- 🪟 Window settings
+config.initial_cols = 150
+config.initial_rows = 50
 wezterm.on("gui-startup", function(cmd)
 	local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
 	local gui_window = window:gui_window()
-	gui_window:toggle_fullscreen()
+	gui_window:set_position(150, 100)
 end)
 
 -- 🔀 Use the WezTerm multiplexer (persists across GUI restarts)
@@ -50,20 +49,6 @@ config.keys = {
 	{ key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
 	{ key = "s", mods = "LEADER", action = act.ShowTabNavigator },
 	{ key = "b", mods = "LEADER", action = wezterm.action.EmitEvent("toggle-blur") },
-
-	-- Workspaces (like tmux sessions)
-	{
-		key = "w",
-		mods = "LEADER",
-		action = act.PromptInputLine({
-			description = "Workspace name:",
-			action = wezterm.action_callback(function(window, pane, line)
-				if line and #line > 0 then
-					window:perform_action(act.SwitchToWorkspace({ name = line }), pane)
-				end
-			end),
-		}),
-	},
 }
 
 table.insert(config.keys, {
@@ -71,18 +56,6 @@ table.insert(config.keys, {
 	mods = "LEADER|CTRL",
 	action = wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
 })
-
--- Show workspace name in window title
-wezterm.on("format-window-title", function(tab, pane, tabs, panes, cfg)
-	local ws = wezterm.mux.get_active_workspace()
-	return string.format("WS: %s — %s", ws, tab.active_pane.title)
-end)
-
--- Show workspace name at right side of tab bar
-wezterm.on("update-status", function(window, pane)
-	local ws = wezterm.mux.get_active_workspace()
-	window:set_right_status("WS: " .. ws)
-end)
 
 wezterm.on("toggle-blur", function(window, pane)
 	local overrides = window:get_config_overrides() or {}
