@@ -37,6 +37,7 @@
     vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
+    host                    # yes, it's redundant on local systems, but it's what I grew up with.
     prompt_char             # prompt symbol
   )
 
