@@ -37,7 +37,6 @@
     vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
-    host                    # yes, it's redundant on local systems, but it's what I grew up with.
     prompt_char             # prompt symbol
   )
 
@@ -113,7 +112,7 @@
     # ip                    # ip address and bandwidth usage for a specified network interface
     # public_ip             # public IP address
     # proxy                 # system-wide http/https/ftp proxy
-    battery               # internal battery
+    # battery               # internal battery
     # wifi                  # wifi speed
     # example               # example user-defined segment (see prompt_example function below)
   )
