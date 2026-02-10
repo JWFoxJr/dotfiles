@@ -15,6 +15,46 @@ config.window_decorations = "TITLE | RESIZE"
 config.font = wezterm.font("Hack Nerd Font")
 config.font_size = 16
 
+-- ---------------------------
+-- Dynamic font sizing by display
+-- ---------------------------
+local function font_size_for_screen(screen)
+	local w = screen.width
+	local h = screen.height
+
+	-- Tune these to taste.
+	-- Example: 4K-ish external monitor
+	if (w >= 3800) or (h >= 2100) then
+		return 16.0
+	end
+
+	-- Example: 1440p-ish
+	if (w >= 2500) or (h >= 1400) then
+		return 15.0
+	end
+
+	-- 1080p-ish and below
+	return 14.0
+end
+
+local function apply_dynamic_font(window)
+	local overrides = window:get_config_overrides() or {}
+	local screen = window:active_screen()
+
+	if screen then
+		local desired = font_size_for_screen(screen)
+		if overrides.font_size ~= desired then
+			overrides.font_size = desired
+			window:set_config_overrides(overrides)
+		end
+	end
+end
+
+-- Fires frequently; good for catching window moves across monitors
+wezterm.on("update-right-status", function(window, _pane)
+	apply_dynamic_font(window)
+end)
+
 -- 🪟 Window settings
 config.initial_cols = 150
 config.initial_rows = 50
@@ -22,6 +62,9 @@ wezterm.on("gui-startup", function(cmd)
 	local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
 	local gui_window = window:gui_window()
 	gui_window:set_position(150, 100)
+
+	-- Apply font sizing once at startup too
+	apply_dynamic_font(gui_window)
 end)
 
 return config
