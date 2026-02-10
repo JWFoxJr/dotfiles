@@ -24,3 +24,5 @@
 
 [diff]
   colorMoved = default
+[push]
+	default = simple
