@@ -18,18 +18,21 @@ config.font_size = 16
 -- ---------------------------
 -- Dynamic font sizing by display
 -- ---------------------------
-local function font_size_for_screen(screen)
-	local w = screen.width
-	local h = screen.height
+local function font_size_for_window(window)
+	local dims = window:get_dimensions()
+	-- dims.pixel_width / pixel_height exist across platforms
+	local pw = dims.pixel_width
+	local ph = dims.pixel_height
 
 	-- Tune these to taste.
 	-- Example: 4K-ish external monitor
-	if (w >= 3800) or (h >= 2100) then
+	-- (window large enough that it could only comfortably exist on 4K/Retina)
+	if (pw >= 3000) or (ph >= 1800) then
 		return 16.0
 	end
 
 	-- Example: 1440p-ish
-	if (w >= 2500) or (h >= 1400) then
+	if (pw >= 2000) or (ph >= 1200) then
 		return 15.0
 	end
 
@@ -39,19 +42,25 @@ end
 
 local function apply_dynamic_font(window)
 	local overrides = window:get_config_overrides() or {}
-	local screen = window:active_screen()
+	local desired = font_size_for_window(window)
 
-	if screen then
-		local desired = font_size_for_screen(screen)
-		if overrides.font_size ~= desired then
-			overrides.font_size = desired
-			window:set_config_overrides(overrides)
-		end
+	if not desired then
+		return
+	end
+
+	if overrides.font_size ~= desired then
+		overrides.font_size = desired
+		window:set_config_overrides(overrides)
 	end
 end
 
 -- Fires frequently; good for catching window moves across monitors
 wezterm.on("update-right-status", function(window, _pane)
+	apply_dynamic_font(window)
+end)
+
+-- Also catch resizes (handy, and it fires when macOS changes scaling)
+wezterm.on("window-resized", function(window, _pane)
 	apply_dynamic_font(window)
 end)
 
