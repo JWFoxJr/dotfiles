@@ -16,23 +16,74 @@ config.font = wezterm.font("Hack Nerd Font")
 config.font_size = 16
 
 -- ---------------------------
--- Dynamic font sizing by display
+-- Dynamic font sizing by *screen the window is on* (bulletproof)
 -- ---------------------------
-local function font_size_for_window(window)
-	local dims = window:get_dimensions()
-	-- dims.pixel_width / pixel_height exist across platforms
-	local pw = dims.pixel_width
-	local ph = dims.pixel_height
 
-	-- Tune these to taste.
-	-- Example: 4K-ish external monitor
-	-- (window large enough that it could only comfortably exist on 4K/Retina)
-	if (pw >= 3000) or (ph >= 1800) then
+local function point_in_rect(px, py, r)
+	return px >= r.x and px < (r.x + r.width) and py >= r.y and py < (r.y + r.height)
+end
+
+local function get_window_top_left(gui_window)
+	-- gui_window:get_position() isn't documented on wezterm.org, so guard it.
+	local ok, x, y = pcall(function()
+		return gui_window:get_position()
+	end)
+	if ok and type(x) == "number" and type(y) == "number" then
+		return x, y
+	end
+	return nil, nil
+end
+
+local function screen_for_window(window)
+	local gui = wezterm.gui
+	if not gui then
+		return nil
+	end
+
+	local screens = gui.screens()
+	if not screens or #screens == 0 then
+		return nil
+	end
+
+	local gui_window = window:gui_window()
+	if not gui_window then
+		return nil
+	end
+
+	local x, y = get_window_top_left(gui_window)
+	if not x or not y then
+		return nil
+	end
+
+	local dims = window:get_dimensions()
+	local cx = x + (dims.pixel_width / 2)
+	local cy = y + (dims.pixel_height / 2)
+
+	for _, s in ipairs(screens) do
+		if point_in_rect(cx, cy, s) then
+			return s
+		end
+	end
+
+	return nil
+end
+
+local function font_size_for_screen(screen, window)
+	-- You can key off screen.name, screen.width/height, or window:get_dimensions().dpi
+	-- screen has x/y/width/height and name.  :contentReference[oaicite:3]{index=3}
+	-- window:get_dimensions() has dpi.          :contentReference[oaicite:4]{index=4}
+
+	-- Example buckets based on the *screen bounds* (not window size):
+	local w = screen.width
+	local h = screen.height
+
+	-- 4K-ish
+	if (w >= 3800) or (h >= 2100) then
 		return 16.0
 	end
 
-	-- Example: 1440p-ish
-	if (pw >= 2000) or (ph >= 1200) then
+	-- 1440p-ish
+	if (w >= 2500) or (h >= 1400) then
 		return 15.0
 	end
 
@@ -42,10 +93,17 @@ end
 
 local function apply_dynamic_font(window)
 	local overrides = window:get_config_overrides() or {}
-	local desired = font_size_for_window(window)
 
-	if not desired then
-		return
+	local screen = screen_for_window(window)
+	local desired
+
+	if screen then
+		desired = font_size_for_screen(screen, window)
+	else
+		-- Fallback: use DPI if we couldn't resolve position/screen
+		local dims = window:get_dimensions()
+		local dpi = dims.dpi or 96
+		desired = (dpi >= 150) and 16.0 or 14.0
 	end
 
 	if overrides.font_size ~= desired then
@@ -54,12 +112,11 @@ local function apply_dynamic_font(window)
 	end
 end
 
--- Fires frequently; good for catching window moves across monitors
-wezterm.on("update-right-status", function(window, _pane)
+-- Use update-status (recommended) rather than update-right-status
+wezterm.on("update-status", function(window, _pane)
 	apply_dynamic_font(window)
 end)
 
--- Also catch resizes (handy, and it fires when macOS changes scaling)
 wezterm.on("window-resized", function(window, _pane)
 	apply_dynamic_font(window)
 end)
