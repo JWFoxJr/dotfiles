@@ -178,4 +178,4 @@ alias cd="z"
 export EDITOR=nvim
 export VISUAL=nvim
 export SUDO_EDITOR=nvim
-alias se='sudoedit'
+alias se='sudo -e'
