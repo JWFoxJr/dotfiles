@@ -173,3 +173,9 @@ source ~/.fzf-git/fzf-git.sh
 eval "$(zoxide init zsh)"
 
 alias cd="z"
+
+# Editor and sudoedit settings
+export EDITOR=nvim
+export VISUAL=nvim
+export SUDO_EDITOR=nvim
+alias se='sudo -e'
