@@ -168,3 +168,8 @@ _fzf_compgen_dir() {
 
 # fzf-git
 source ~/.fzf-git/fzf-git.sh
+
+# ---- Zoxide (better cd) ----
+eval "$(zoxide init zsh)"
+
+alias cd="z"
