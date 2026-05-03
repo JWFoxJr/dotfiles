@@ -13,6 +13,9 @@ lines = 60
 x = 5
 y = 5
 
+[window]
+decorations = "None"
+
 [general]
 import = [
   # uncomment the flavour you want below:
