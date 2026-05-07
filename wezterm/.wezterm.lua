@@ -12,7 +12,7 @@ config.color_scheme = "Catppuccin Mocha"
 config.window_decorations = "TITLE | RESIZE"
 
 -- 🖋 Fonts (simple = cheaper)
-config.font = wezterm.font("Hack Nerd Font")
+config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 16
 
 -- ---------------------------
