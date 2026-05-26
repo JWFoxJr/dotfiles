@@ -86,6 +86,8 @@ zstyle ':omz:plugins:eza' 'dirs-first' yes
 zstyle ':omz:plugins:eza' 'header' yes
 zstyle ':omz:plugins:eza' 'icons' yes
 
+source $ZSH/oh-my-zsh.sh
+
 _tab_accept_or_complete() {
   if [[ -n "$POSTDISPLAY" ]]; then
     zle autosuggest-accept
@@ -96,8 +98,6 @@ _tab_accept_or_complete() {
 
 zle -N _tab_accept_or_complete
 bindkey '^I' _tab_accept_or_complete
-
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
