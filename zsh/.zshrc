@@ -88,6 +88,17 @@ zstyle ':omz:plugins:eza' 'icons' yes
 
 source $ZSH/oh-my-zsh.sh
 
+_tab_accept_or_complete() {
+  if [[ -n "$POSTDISPLAY" ]]; then
+    zle autosuggest-accept
+  else
+    zle expand-or-complete
+  fi
+}
+
+zle -N _tab_accept_or_complete
+bindkey '^I' _tab_accept_or_complete
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
