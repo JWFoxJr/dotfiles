@@ -32,6 +32,7 @@ function fish_prompt
         set_color normal
 
         printf '%s' (fish_prompt_git_provider_icon)
+        printf ' '
         set_color $c_git
         printf ' '
         printf '%s' "$branch"
