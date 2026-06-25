@@ -245,3 +245,7 @@ run = 'move-node-to-workspace W'
 [[on-window-detected]]
 if.app-id = 'com.microsoft.Excel'
 run = 'move-node-to-workspace X'
+
+# Catch-all: anything that did not match above floats
+[[on-window-detected]]
+run = 'layout floating'
