@@ -254,4 +254,5 @@ run = 'move-node-to-workspace E'
 
 # Catch-all: anything that did not match above floats
 [[on-window-detected]]
+if = 'true'
 run = 'layout floating'
