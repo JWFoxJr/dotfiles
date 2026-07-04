@@ -8,6 +8,7 @@
 #
 # fish_add_path avoids duplicates and keeps this idempotent.
 fish_add_path /opt/homebrew/bin
+fish_add_path ~/.config/emacs/bin
 fish_add_path ~/bin
 fish_add_path ~/.local/bin
 fish_add_path /usr/local/bin
