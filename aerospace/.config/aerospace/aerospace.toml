@@ -246,6 +246,10 @@ run = 'move-node-to-workspace W'
 if.app-id = 'com.microsoft.Excel'
 run = 'move-node-to-workspace X'
 
+[[on-window-detected]]
+if.app-id = 'org.gnu.Emacs'
+run = 'move-node-to-workspace E'
+
 # Catch-all: anything that did not match above floats
 [[on-window-detected]]
 run = 'layout floating'
