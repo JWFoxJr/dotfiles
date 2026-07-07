@@ -7,7 +7,7 @@
 #   export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 #
 # fish_add_path avoids duplicates and keeps this idempotent.
-fish_add_path /opt/homebrew/bin
+fish_add_path --move --prepend /opt/homebrew/bin /opt/homebrew/sbin
 fish_add_path ~/.config/emacs/bin
 fish_add_path ~/bin
 fish_add_path ~/.local/bin
