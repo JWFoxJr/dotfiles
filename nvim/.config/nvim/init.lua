@@ -1,2 +1,2 @@
-require('neovim.core')
-require('neovim.lazy')
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
