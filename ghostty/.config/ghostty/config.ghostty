@@ -3,10 +3,10 @@ font-family = "JetBrainsMono Nerd Font"
 font-size = 15
 
 # Theme
-theme = Catppuccin Mocha
+theme = TokyoNight Night
 
 # Nice readability defaults
 cursor-style = block
-shell-integration = zsh
+shell-integration = fish
 window-padding-x = 10
 window-padding-y = 10
