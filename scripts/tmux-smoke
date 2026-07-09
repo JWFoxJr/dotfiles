@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+set -eu
+
+SERVER="${TMUX_SMOKE_SERVER:-dotfiles-smoke}"
+SESSION="${1:-smoke}"
+
+if ! command -v tmux >/dev/null 2>&1; then
+  echo "tmux-smoke: tmux not found in PATH" >&2
+  exit 127
+fi
+
+if [ -n "${TMUX:-}" ]; then
+  echo "tmux-smoke: already inside tmux; opening isolated server '$SERVER'" >&2
+fi
+
+exec tmux -L "$SERVER" -f /dev/null new-session -A -s "$SESSION"

@@ -1,0 +1,36 @@
+#!/usr/bin/env sh
+set -eu
+
+SERVER="${TMUX_STATUS_SERVER:-${TMUX_DEV_SERVER:-dotfiles-dev}}"
+
+if ! command -v tmux >/dev/null 2>&1; then
+  echo "tmux-status: tmux not found in PATH" >&2
+  exit 127
+fi
+
+echo "tmux-status: server=$SERVER"
+echo
+
+show_option() {
+  name="$1"
+  value="$(tmux -L "$SERVER" show -gv "$name" 2>/dev/null || true)"
+
+  echo "## $name"
+  if [ -n "$value" ]; then
+    printf '%s\n' "$value"
+  else
+    echo "(empty or unset)"
+  fi
+  echo
+}
+
+show_option "status"
+show_option "status-position"
+show_option "status-style"
+show_option "status-left"
+show_option "status-right"
+show_option "status-format[0]"
+show_option "status-format[1]"
+
+echo "## sessions"
+tmux -L "$SERVER" list-sessions 2>/dev/null || echo "(no sessions on server '$SERVER')"

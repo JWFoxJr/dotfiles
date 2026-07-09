@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+set -eu
+
+SERVER="${TMUX_DEV_SERVER:-dotfiles-dev}"
+SESSION="${1:-dev}"
+
+if ! command -v tmux >/dev/null 2>&1; then
+  echo "tmux-dev: tmux not found in PATH" >&2
+  exit 127
+fi
+
+# Resolve repo root from the script location:
+# scripts/tmux-dev -> repo root is parent of scripts/
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+REPO_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
+
+CONFIG="$REPO_ROOT/tmux/.config/tmux/tmux.conf"
+
+if [ ! -f "$CONFIG" ]; then
+  echo "tmux-dev: config not found:" >&2
+  echo "  $CONFIG" >&2
+  exit 1
+fi
+
+if [ -n "${TMUX:-}" ]; then
+  echo "tmux-dev: already inside tmux; opening isolated server '$SERVER'" >&2
+fi
+
+echo "tmux-dev: using config: $CONFIG" >&2
+
+exec tmux -L "$SERVER" -f "$CONFIG" new-session -A -s "$SESSION"
