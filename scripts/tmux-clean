@@ -1,0 +1,45 @@
+#!/usr/bin/env sh
+set -eu
+
+SERVER="${TMUX_CLEAN_SERVER:-dotfiles-clean}"
+SESSION="${1:-clean}"
+
+if ! command -v tmux >/dev/null 2>&1; then
+  echo "tmux-clean: tmux not found in PATH" >&2
+  exit 127
+fi
+
+TMP_BASE="${TMPDIR:-/tmp}"
+CONFIG_DIR="$(mktemp -d "${TMP_BASE%/}/tmux-clean.XXXXXX")"
+CONFIG="$CONFIG_DIR/tmux.conf"
+
+cleanup() {
+  rm -rf "$CONFIG_DIR"
+}
+
+trap cleanup EXIT HUP INT TERM
+
+cat >"$CONFIG" <<'EOF'
+# Minimal known-good tmux config for testing
+
+set -g default-terminal "tmux-256color"
+set -g mouse on
+set -g status on
+set -g status-position bottom
+set -g status-interval 5
+
+set -g status-style "bg=colour235,fg=colour250"
+set -g status-left-length 40
+set -g status-right-length 80
+
+set -g status-left "#[bold,fg=colour250,bg=colour238] clean #[default]"
+set -g status-right "#[fg=colour245,bg=colour235]#S #[fg=colour110]%H:%M #[default]"
+
+setw -g mode-keys vi
+EOF
+
+if [ -n "${TMUX:-}" ]; then
+  echo "tmux-clean: already inside tmux; opening isolated server '$SERVER'" >&2
+fi
+
+exec tmux -L "$SERVER" -f "$CONFIG" new-session -A -s "$SESSION"
