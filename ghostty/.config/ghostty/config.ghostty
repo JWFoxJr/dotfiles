@@ -4,6 +4,11 @@ font-size = 15
 
 # Theme
 theme = TokyoNight Night
+background-image = assets/cerevyn-business.png
+background-image-opacity = 0.35
+background-image-fit = cover
+background-image-position = center
+background-image-repeat = false
 
 # Nice readability defaults
 cursor-style = block
