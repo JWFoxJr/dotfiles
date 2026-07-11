@@ -4,7 +4,7 @@ function fish_right_prompt
 
     # Hide right-side jewellery in the narrow 75/25 rail.
     # The left prompt already shows failures by turning ❯ red.
-    if test "$cols" -lt 160
+    if test "$cols" -lt 100
         return
     end
 
