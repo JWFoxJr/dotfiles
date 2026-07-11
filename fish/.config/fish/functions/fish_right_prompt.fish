@@ -1,5 +1,12 @@
 function fish_right_prompt
     set -l last_status $status
+    set -l cols (fish_prompt_cols)
+
+    # Hide right-side jewellery in the narrow 75/25 rail.
+    # The left prompt already shows failures by turning ❯ red.
+    if test "$cols" -lt 100
+        return
+    end
 
     set -l color_error f38ba8
     set -l color_time 94e2d5
