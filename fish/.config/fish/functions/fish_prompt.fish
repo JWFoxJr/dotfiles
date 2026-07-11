@@ -9,12 +9,15 @@ function fish_prompt
     set -l show_on_word 1
     set -l show_git_status 1
 
-    if test "$cols" -lt 75
+    # On Joe's ultrawide Ghostty layout, the 75/25 rail is still often
+    # wider than 75 columns. Treat anything below 120 cols as compact.
+    if test "$cols" -lt 120
         set show_on_word 0
         set show_git_status 0
     end
 
-    if test "$cols" -lt 55
+    # Extremely narrow panes get path-only steel.
+    if test "$cols" -lt 80
         set show_git 0
     end
 
@@ -43,11 +46,11 @@ function fish_prompt
         end
 
         # Keep long branch names from eating the right rail.
-        if test "$cols" -lt 100
+        if test "$cols" -lt 160
             set branch (string shorten --max 18 -- "$branch")
         end
 
-        if test "$cols" -lt 75
+        if test "$cols" -lt 120
             set branch (string shorten --max 12 -- "$branch")
         end
 
