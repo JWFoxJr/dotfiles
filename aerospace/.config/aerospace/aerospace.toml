@@ -249,8 +249,8 @@ if.app-id = 'com.microsoft.Excel'
 run = 'move-node-to-workspace X'
 
 [[on-window-detected]]
-if.app-id = 'org.gnu.Emacs'
-run = 'move-node-to-workspace E'
+if.app-id = 'com.apple.MobileSMS'
+run = 'move-node-to-workspace C'
 
 # Catch-all: anything that did not match above floats
 [[on-window-detected]]
