@@ -22,6 +22,9 @@ zvm_after_init() {
   # Ctrl+F -> fzf file picker, excluding hidden files
   (( $+widgets[_fzf_file_no_hidden] )) && bindkey '^F' _fzf_file_no_hidden
 
+  # Ctrl+R -> fzf history search
+  (( $+widgets[fzf-history-widget] )) && bindkey '^R' fzf-history-widget
+
   # Ctrl+\ -> toggle autosuggestions, useful for screen recordings
   (( $+widgets[autosuggest-toggle] )) && bindkey '^\' autosuggest-toggle
 
