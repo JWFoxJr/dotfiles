@@ -22,7 +22,7 @@ orange = "#FF9E64"
 [custom.os_icon]
 description = "Show a quiet OS icon"
 shell = ["bash", "--noprofile", "--norc", "-c"]
-when = "true"
+when = true
 command = '''
 case "$(uname -s)" in
   Darwin)
@@ -61,7 +61,8 @@ read_only = " ro"
 [custom.git_provider]
 description = "Show Git provider icon based on origin remote"
 shell = ["bash", "--noprofile", "--norc", "-c"]
-when = "git rev-parse --is-inside-work-tree >/dev/null 2>&1"
+# when = "git rev-parse --is-inside-work-tree >/dev/null 2>&1"
+when = true
 command = '''
 url="$(git config --get remote.origin.url 2>/dev/null || true)"
 
