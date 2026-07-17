@@ -10,7 +10,7 @@ palette = "void"
 
 [palettes.void]
 void_bg = "#0B0E14"
-muted = "#6C7086"
+muted = "#9AA5CE"   #6C7086
 path = "#A6D1FF"
 violet = "#B48EFA"
 gold = "#E6C384"
@@ -21,12 +21,12 @@ orange = "#FF9E64"
 
 [custom.os_icon]
 description = "Show a quiet OS icon"
-shell = ["bash", "--noprofile", "--norc", "-c"]
+shell = ["bash", "--noprofile", "--norc"]
 when = true
 command = '''
 case "$(uname -s)" in
   Darwin)
-    printf " "
+    printf " "
     ;;
   Linux)
     if [ -r /etc/os-release ]; then
@@ -52,7 +52,7 @@ format = "[$output]($style)"
 style = "muted"
 
 [directory]
-format = "[$path]($style) "
+format = " [$path]($style) "
 style = "path"
 truncation_length = 4
 truncate_to_repo = false
@@ -60,26 +60,27 @@ read_only = " ro"
 
 [custom.git_provider]
 description = "Show Git provider icon based on origin remote"
-shell = ["bash", "--noprofile", "--norc", "-c"]
+shell = ["bash", "--noprofile", "--norc"]
 # when = "git rev-parse --is-inside-work-tree >/dev/null 2>&1"
 when = true
+require_repo = true
 command = '''
 url="$(git config --get remote.origin.url 2>/dev/null || true)"
 
 case "$url" in
   *github.com*) printf " " ;;
-  *gitlab*)     printf " " ;;
+  *gitlab*|*foundry*)     printf " " ;;
   *bitbucket*)  printf " " ;;
   *azure.com*|*visualstudio.com*) printf "󰠅 " ;;
   "")           printf " " ;;
   *)            printf " " ;;
 esac
 '''
-format = "[∷ $output]($style)"
+format = "[∷ $output]($style) "
 style = "muted"
 
 [git_branch]
-format = "[$branch]($style) "
+format = " [$branch]($style) "
 style = "gold"
 
 [git_status]

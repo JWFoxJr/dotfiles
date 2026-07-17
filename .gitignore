@@ -209,4 +209,8 @@ pyrightconfig.json
 # Fish variables
 fish_variables
 
+# Local zsh plugin/runtime installs
+zsh/.config/zsh/plugins/
+zsh/.fzf-git/
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,python
