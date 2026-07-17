@@ -22,6 +22,7 @@ orange = "#FF9E64"
 [custom.os_icon]
 description = "Show a quiet OS icon"
 shell = ["bash", "--noprofile", "--norc", "-c"]
+when = "true"
 command = '''
 case "$(uname -s)" in
   Darwin)
@@ -57,10 +58,6 @@ truncation_length = 4
 truncate_to_repo = false
 read_only = " ro"
 
-[git_branch]
-format = "[∷](muted) [$branch]($style) "
-style = "gold"
-
 [custom.git_provider]
 description = "Show Git provider icon based on origin remote"
 shell = ["bash", "--noprofile", "--norc", "-c"]
@@ -79,6 +76,10 @@ esac
 '''
 format = "[∷ $output]($style)"
 style = "muted"
+
+[git_branch]
+format = "[$branch]($style) "
+style = "gold"
 
 [git_status]
 format = "([$all_status$ahead_behind]($style) )"
