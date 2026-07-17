@@ -40,7 +40,7 @@ fi
 (( $+commands[nvim] )) && alias vim='nvim'
 
 # Git
-alias gs='git status'
+alias gst='git status'
 alias gss='git status --short'
 alias ga='git add'
 alias gaa='git add --all'
