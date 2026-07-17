@@ -1,0 +1,61 @@
+add_newline = false
+
+format = """
+$directory$git_branch$git_status$cmd_duration
+$character"""
+
+right_format = "$time"
+
+palette = "void"
+
+[palettes.void]
+void_bg = "#0B0E14"
+muted = "#6C7086"
+path = "#A6D1FF"
+violet = "#B48EFA"
+gold = "#E6C384"
+teal = "#7DCFFF"
+green = "#9ECE6A"
+red = "#F7768E"
+orange = "#FF9E64"
+
+[directory]
+format = "[$path]($style) "
+style = "path"
+truncation_length = 4
+truncate_to_repo = false
+read_only = " ro"
+
+[git_branch]
+format = "[∷](muted) [$branch]($style) "
+style = "gold"
+
+[git_status]
+format = "([$all_status$ahead_behind]($style) )"
+style = "muted"
+conflicted = "[!$count](red) "
+ahead = "[↑$count](teal) "
+behind = "[↓$count](orange) "
+diverged = "[↑$ahead_count↓$behind_count](orange) "
+untracked = "[?$count](muted) "
+stashed = "[$$count](violet) "
+modified = "[~$count](orange) "
+staged = "[+$count](green) "
+renamed = "[»$count](teal) "
+deleted = "[-$count](red) "
+
+[cmd_duration]
+min_time = 2000
+format = "[⧖ $duration]($style) "
+style = "teal"
+
+[time]
+disabled = false
+format = "[$time]($style)"
+time_format = "%H:%M"
+style = "muted"
+
+[character]
+success_symbol = "[❯](green)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](violet)"
