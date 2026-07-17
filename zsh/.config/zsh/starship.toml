@@ -1,7 +1,7 @@
 add_newline = false
 
 format = """
-$directory$git_branch$git_status$cmd_duration
+${custom.os_icon}$directory${custom.git_provider}$git_branch$git_status$cmd_duration
 $character"""
 
 right_format = "$time"
@@ -19,6 +19,37 @@ green = "#9ECE6A"
 red = "#F7768E"
 orange = "#FF9E64"
 
+[custom.os_icon]
+description = "Show a quiet OS icon"
+shell = ["bash", "--noprofile", "--norc", "-c"]
+command = '''
+case "$(uname -s)" in
+  Darwin)
+    printf " "
+    ;;
+  Linux)
+    if [ -r /etc/os-release ]; then
+      . /etc/os-release
+      case "${ID:-}" in
+        cachyos) printf " " ;;
+        arch)    printf " " ;;
+        fedora)  printf " " ;;
+        ubuntu)  printf " " ;;
+        debian)  printf " " ;;
+        *)       printf " " ;;
+      esac
+    else
+      printf " "
+    fi
+    ;;
+  *)
+    printf " "
+    ;;
+esac
+'''
+format = "[$output]($style)"
+style = "muted"
+
 [directory]
 format = "[$path]($style) "
 style = "path"
@@ -29,6 +60,25 @@ read_only = " ro"
 [git_branch]
 format = "[∷](muted) [$branch]($style) "
 style = "gold"
+
+[custom.git_provider]
+description = "Show Git provider icon based on origin remote"
+shell = ["bash", "--noprofile", "--norc", "-c"]
+when = "git rev-parse --is-inside-work-tree >/dev/null 2>&1"
+command = '''
+url="$(git config --get remote.origin.url 2>/dev/null || true)"
+
+case "$url" in
+  *github.com*) printf " " ;;
+  *gitlab*)     printf " " ;;
+  *bitbucket*)  printf " " ;;
+  *azure.com*|*visualstudio.com*) printf "󰠅 " ;;
+  "")           printf " " ;;
+  *)            printf " " ;;
+esac
+'''
+format = "[∷ $output]($style)"
+style = "muted"
 
 [git_status]
 format = "([$all_status$ahead_behind]($style) )"
