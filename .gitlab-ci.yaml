@@ -1,0 +1,29 @@
+variables:
+  GIT_DEPTH: "0"
+  GIT_STRATEGY: fetch
+
+stages:
+  - mirror
+
+mirror:github:main:
+  stage: mirror
+  image: debian:bookworm-slim
+  tags:
+    - docker
+  before_script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends ca-certificates git openssh-client
+    - rm -rf /var/lib/apt/lists/*
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - printf '%s\n' "$GITHUB_MIRROR_SSH_KEY" > ~/.ssh/id_ed25519
+    - chmod 600 ~/.ssh/id_ed25519
+    - ssh-keyscan github.com >> ~/.ssh/known_hosts
+    - git config --global user.name "GitLab CI"
+    - git config --global user.email "gitlab-ci@foundry1.tenno.jwfoxjr.com"
+  script:
+    - git remote add github "$GITHUB_MIRROR_REPO" || git remote set-url github "$GITHUB_MIRROR_REPO"
+    - git fetch github main || true
+    - git push --force-with-lease github HEAD:main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
