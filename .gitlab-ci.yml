@@ -9,7 +9,7 @@ mirror:github:main:
   stage: mirror
   image: debian:bookworm-slim
   tags:
-    - docker
+    - tennolab
   before_script:
     - apt-get update
     - apt-get install -y --no-install-recommends ca-certificates git openssh-client
