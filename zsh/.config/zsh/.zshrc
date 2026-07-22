@@ -32,7 +32,7 @@ setopt NUMERIC_GLOB_SORT
 
 # zoxide
 if command -v zoxide >/dev/null 2>&1; then
-  eval "$(zoxide init zsh)"
+  eval "$(zoxide init --cmd cd zsh)"
 fi
 
 # Completion
