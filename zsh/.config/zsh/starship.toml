@@ -37,6 +37,7 @@ case "$(uname -s)" in
         fedora)  printf " " ;;
         ubuntu)  printf " " ;;
         debian)  printf " " ;;
+        nixos)   printf " " ;;
         *)       printf " " ;;
       esac
     else
