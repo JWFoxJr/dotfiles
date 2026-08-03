@@ -6,21 +6,28 @@
     homeDirectory = "/home/joe";
     stateVersion = "26.05";
     packages = with pkgs; [
-      tree
       bat
-      yazi
-      tmux
-      tlrc
       btop
-      neovim
-      pay-respects
-      ghostty
-      fastfetch
-      stow
-      starship
-      fzf
-      ripgrep
+      deno
       eza
+      fastfetch
+      fzf
+      gcc
+      ghostty
+      gnumake
+      neovim
+      nodejs
+      pay-respects
+      pkg-config
+      python3
+      ripgrep
+      starship
+      stow
+      tlrc
+      tmux
+      tree
+      unzip
+      yazi
       zoxide
     ];
   };
