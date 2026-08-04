@@ -67,8 +67,8 @@ on-window-detected = [
     'layout tiles',
   ] },
   { if = 'test %{app-bundle-id} = com.moonlight-stream.Moonlight', run = 'move-node-to-workspace G' },
-  { if = 'test %{app-bundle-id} = com.apple.mail || test %{app-bundle-id} = com.microsft.Outlook', run = 'move-node-to-workspace M' },
-  { if = 'test %{app-bundle-id} = md.obsidian || test %{app-bundle-id} = com.microsoft.Onenote', run = 'move-node-to-workspace O' },
+  { if = 'test %{app-bundle-id} = com.apple.mail || test %{app-bundle-id} = com.microsoft.Outlook', run = 'move-node-to-workspace M' },
+  { if = 'test %{app-bundle-id} = md.obsidian || test %{app-bundle-id} = com.microsoft.Onenote.mac', run = 'move-node-to-workspace O' },
   { if = 'test %{app-name} ~= Preview', run = 'move-node-to-workspace P' },
   { if = 'test %{app-bundle-id} = com.microsoft.rdc.macos || test %{app-bundle-id} = com.citrix.receiver.icaviewer.mac || test %{app-bundle-id} = com.citrix.receiver.nomas', run = [
     'move-node-to-workspace R',
