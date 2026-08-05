@@ -47,6 +47,10 @@
           system = "aarch64-linux";
         };
 
+        nyx = mkHost {
+          hostname = "nightwave";
+        };
+
         # nightwave = mkHost {
         #   hostname = "nightwave";
         # };
