@@ -48,7 +48,7 @@
         };
 
         nyx = mkHost {
-          hostname = "nightwave";
+          hostname = "nyx";
         };
 
         # nightwave = mkHost {
