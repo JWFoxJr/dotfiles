@@ -26,5 +26,5 @@
     [ { device = "/dev/disk/by-uuid/484f5f1b-77a8-4144-a857-78635dd58ea9"; }
     ];
 
-  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
