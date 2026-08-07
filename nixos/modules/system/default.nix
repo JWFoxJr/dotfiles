@@ -51,6 +51,7 @@
     arandr
     curl
     feh
+    flameshot
     git
     i3status
     networkmanagerapplet
