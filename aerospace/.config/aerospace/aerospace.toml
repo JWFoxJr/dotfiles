@@ -76,6 +76,10 @@ on-window-detected = [
   ] },
   { if = 'test %{app-bundle-id} = com.microsoft.Powerpoint', run = 'move-node-to-workspace S' },
   { if = 'test %{app-bundle-id} = com.mitchellh.ghostty', run = 'move-node-to-workspace T' },
+  { if = 'test %{app-bundle-id} = com.vmware.fusion || test %{app-bundle-id} = com.parallels.desktop.console', run = [
+    'move-node-to-workspace V',
+    'layout floating',
+  ] },
   { if = 'test %{app-bundle-id} = com.microsoft.Word', run = 'move-node-to-workspace W' },
   { if = 'test %{app-bundle-id} = com.microsoft.Excel', run = 'move-node-to-workspace X' },
 
