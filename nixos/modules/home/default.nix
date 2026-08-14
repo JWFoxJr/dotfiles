@@ -16,18 +16,21 @@
       gcc
       ghostty
       gnumake
-      neovim
+      nil
+      nixfmt
       nodejs
       pay-respects
       pkg-config
       python3
       ripgrep
       starship
+      statix
       stow
       tlrc
       tmux
       tree
       unzip
+      vivaldi
       yazi
       zoxide
     ];
@@ -41,6 +44,13 @@
       shellAliases = {
         btw = "echo I use NixOS, btw";
       };
+    };
+    neovim = {
+      enable = true;
+
+      plugins = with pkgs.vimPlugins; [
+        nvim-treesitter.withAllGrammars
+      ];
     };
   };
 }

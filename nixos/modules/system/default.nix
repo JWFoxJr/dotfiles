@@ -26,7 +26,10 @@
       pulse.enable = true;
       alsa.enable = true;
     };
-
+    xrdp = {
+      enable = true;
+      defaultWindowManager = "i3";
+    };
     xserver = {
       enable = true;
       windowManager.i3.enable = true;
@@ -53,6 +56,7 @@
     feh
     flameshot
     git
+    i3blocks
     i3status
     networkmanagerapplet
     pavucontrol
@@ -73,6 +77,8 @@
     "nix-command"
     "flakes"
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   system.stateVersion = "26.05";
 }
