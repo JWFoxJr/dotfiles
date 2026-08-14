@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+if [ -n "$BLOCK_BUTTON" ]; then
+  nm-connection-editor &
+  exit 0
+fi
+
+active="$(nmcli -t -f TYPE,DEVICE connection show --active |
+  awk -F: '$1=="802-3-ethernet" || $1=="wifi" {print $1 ":" $2; exit}')"
+
+if [ -z "$active" ]; then
+  echo "󰈂 offline"
+  echo
+  echo "#ff5555"
+  exit 0
+fi
+
+type="${active%%:*}"
+device="${active#*:}"
+
+ip="$(ip -4 -o addr show dev "$device" scope global 2>/dev/null |
+  awk '{split($4, a, "/"); print a[1]; exit}')"
+
+if [ -z "$ip" ]; then
+  echo "󰈂 no ip"
+  exit 0
+fi
+
+case "$type" in
+802-3-ethernet)
+  echo "󰈀 $ip"
+  echo
+  echo "#8be9fd"
+  ;;
+wifi)
+  echo "󰤨 $ip"
+  echo
+  echo "#50fa7b"
+  ;;
+*)
+  echo "󰈂 $ip"
+  echo
+  echo "#ffb86c"
+  ;;
+esac

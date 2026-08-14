@@ -5,7 +5,7 @@
 set $mod Mod4
 set $term ghostty
 set $menu rofi -show drun
-set $font JetBrainsMono Nerd Font 10
+set $font JetBrainsMono Nerd Font 12
 
 font pango:$font
 
@@ -58,8 +58,8 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # Layout.
-bindsym $mod+b split h
-bindsym $mod+v split v
+bindsym $mod+bar split h
+bindsym $mod+minus split v
 bindsym $mod+f fullscreen toggle
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
@@ -140,12 +140,12 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -B 'Exit' 'i3-msg exit'"
 
 # Startup. Keep wallpaper out for now: Ghostty is currently carrying Cerevyn_Business.png.
-exec --no-startup-id nm-applet --indicator
-
+exec_always --no-startup-id sh -c 'output="$(xrandr --query | awk "/ connected/{print \$1; exit}")"; [ -n "$output" ] && xrandr --output "$output"'
+exec_always --no-startup-id feh --bg-fill ~/.dotfiles/ghostty/.config/ghostty/assets/cerevyn-business.png
 # Bar.
 bar {
-    position bottom
-    status_command i3status
+    position top 
+    status_command i3blocks
     font pango:$font
 
     colors {
@@ -160,3 +160,5 @@ bar {
         binding_mode       $yellow $yellow $bg
     }
 }
+
+# exec --no-startup-id nm-applet --indicator

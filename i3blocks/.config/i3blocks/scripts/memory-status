@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+read -r mem_total mem_available < <(
+  awk '
+        /^MemTotal:/ { total=$2 }
+        /^MemAvailable:/ { available=$2 }
+        END { print total, available }
+    ' /proc/meminfo
+)
+
+used_kib=$((mem_total - mem_available))
+used_gib="$(awk -v kib="$used_kib" 'BEGIN { printf "%.1fG", kib / 1024 / 1024 }')"
+used_pct=$((used_kib * 100 / mem_total))
+
+if [ "$used_pct" -ge 90 ]; then
+  echo "󰍛 ${used_gib}!"
+  echo
+  echo "#ff5555"
+elif [ "$used_pct" -ge 80 ]; then
+  echo "󰍛 ${used_gib}"
+  echo
+  echo "#ffb86c"
+else
+  echo "󰍛 ${used_gib}"
+  echo
+  echo "#bd93f9"
+fi

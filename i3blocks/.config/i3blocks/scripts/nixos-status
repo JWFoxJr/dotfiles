@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+if [ -n "$BLOCK_BUTTON" ]; then
+    i3-sensible-terminal -e sh -c 'nixos-rebuild list-generations; printf "\nPress Enter to close..."; read _' &
+fi
+
+current="$(readlink -f /run/current-system 2>/dev/null)"
+latest="$(readlink -f /nix/var/nix/profiles/system 2>/dev/null)"
+
+if [ -z "$current" ] || [ -z "$latest" ]; then
+    echo " n/a"
+    exit 0
+fi
+
+if [ "$current" = "$latest" ]; then
+    echo " OK"
+else
+    echo " new gen"
+fi
