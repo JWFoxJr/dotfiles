@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+display="${DISPLAY:-unknown}"
+
+case "$display" in
+:0 | :0.*)
+  echo "󰍹 console"
+  echo
+  echo "#8be9fd"
+  ;;
+:*)
+  echo "󰢹 RDP"
+  echo
+  echo "#bd93f9"
+  ;;
+*)
+  echo "󰍹 local"
+  echo
+  echo "#6272a4"
+  ;;
+esac

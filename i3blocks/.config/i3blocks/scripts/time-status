@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+date '+%a %d %b %H:%M'
+echo
+echo "#bd93f9"

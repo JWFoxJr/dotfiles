@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+sink='@DEFAULT_AUDIO_SINK@'
+
+show_volume() {
+  line="$(wpctl get-volume "$sink" 2>/dev/null)" || {
+    echo "󰝟 n/a"
+    exit 0
+  }
+
+  vol="$(printf '%s\n' "$line" | awk '{printf "%d", $2 * 100}')"
+
+  if printf '%s\n' "$line" | grep -q '\[MUTED\]'; then
+    echo "󰝟 muted"
+    echo
+    echo "#6272a4"
+  elif [ "$vol" -ge 90 ]; then
+    echo "󰕾 ${vol}%"
+    echo
+    echo "#ff5555"
+  elif [ "$vol" -ge 70 ]; then
+    echo "󰕾 ${vol}%"
+    echo
+    echo "#ffb86c"
+  elif [ "$vol" -ge 30 ]; then
+    echo "󰖀 ${vol}%"
+    echo
+    echo "#50fa7b"
+  else
+    echo "󰕿 ${vol}%"
+    echo
+    echo "#8be9fd"
+  fi
+}
+
+case "$BLOCK_BUTTON" in
+1)
+  wpctl set-mute "$sink" toggle
+  ;;
+4)
+  wpctl set-volume "$sink" 5%+ -l 1.0
+  ;;
+5)
+  wpctl set-volume "$sink" 5%-
+  ;;
+esac
+
+show_volume

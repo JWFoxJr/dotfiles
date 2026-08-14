@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+avail="$(df -h / | awk 'NR==2 {print $4}')"
+used_pct="$(df / | awk 'NR==2 {gsub("%","",$5); print $5}')"
+
+if [ "$used_pct" -ge 90 ]; then
+  echo "󰋊 / ${avail}!"
+  echo
+  echo "#ff5555"
+elif [ "$used_pct" -ge 80 ]; then
+  echo "󰋊 / ${avail}"
+  echo
+  echo "#ffb86c"
+else
+  echo "󰋊 / ${avail}"
+  echo
+  echo "#50fa7b"
+fi

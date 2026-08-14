@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+show_button() {
+  echo "  "
+  echo
+  echo "#ff5555"
+}
+
+# Normal render: just show the button
+if [ -z "$BLOCK_BUTTON" ]; then
+  show_button
+  exit 0
+fi
+
+choice="$(printf '%s\n' \
+  "Logout" \
+  "Restart i3" \
+  "Reboot" \
+  "Shutdown" \
+  "Cancel" |
+  rofi -dmenu -p "Power")"
+
+case "$choice" in
+"Logout")
+  i3-msg exit
+  ;;
+"Restart i3")
+  i3-msg restart
+  ;;
+"Reboot")
+  systemctl reboot
+  ;;
+"Shutdown")
+  systemctl poweroff
+  ;;
+"Cancel" | "")
+  show_button
+  ;;
+*)
+  show_button
+  ;;
+esac
