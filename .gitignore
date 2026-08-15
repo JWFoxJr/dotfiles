@@ -212,5 +212,5 @@ fish_variables
 # Local zsh plugin/runtime installs
 zsh/.config/zsh/plugins/
 zsh/.fzf-git/
-
+zsh/.config/zsh/.zcompdump*
 # End of https://www.toptal.com/developers/gitignore/api/macos,python
