@@ -1,8 +1,7 @@
 add_newline = false
 
 format = """
-${custom.os_icon}$directory${custom.git_provider}$git_branch$git_status$cmd_duration$fill$time
-$fill$hostname
+${custom.os_icon}$time$directory${custom.git_provider}$git_branch$git_status$cmd_duration$fill$hostname
 $character"""
 
 palette = "void"
@@ -109,7 +108,7 @@ style = "teal"
 
 [time]
 disabled = false
-format = "[$time]($style)"
+format = " [$time]($style)"
 time_format = "%H:%M"
 style = "muted"
 
