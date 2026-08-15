@@ -17,6 +17,9 @@ green = "#9ECE6A"
 red = "#F7768E"
 orange = "#FF9E64"
 
+[fill]
+symbol = " "
+
 [custom.os_icon]
 description = "Show a quiet OS icon"
 shell = ["bash", "--noprofile", "--norc"]
