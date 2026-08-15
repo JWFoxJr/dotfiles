@@ -51,10 +51,10 @@
           hostname = "nyx";
         };
 
-        # nightwave = mkHost {
-        #   hostname = "nightwave";
-        # };
-        #
+        nightwave = mkHost {
+          hostname = "nightwave";
+        };
+
         # umbra = mkHost {
         #   hostname = "umbra";
         # };
@@ -62,4 +62,3 @@
       };
     };
 }
-
