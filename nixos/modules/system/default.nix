@@ -20,6 +20,7 @@
     displayManager.ly.enable = true;
 
     openssh.enable = true;
+
     pipewire = {
       enable = true;
       pulse.enable = true;
@@ -35,15 +36,6 @@
     };
   };
 
-  programs = {
-    firefox.enable = true;
-    hyprland = {
-      enable = true;
-      xwayland.enable = true;
-    };
-    zsh.enable = true;
-  };
-
   users.users.joe = {
     isNormalUser = true;
     extraGroups = [
@@ -53,24 +45,23 @@
     shell = pkgs.zsh;
   };
 
+  programs = {
+    firefox.enable = true;
+    zsh.enable = true;
+  };
+
   environment.systemPackages = with pkgs; [
     arandr
     curl
     feh
     flameshot
     git
-    grim
-    hyprlock
     i3blocks
     i3status
     networkmanagerapplet
-    nwg-displays
     pavucontrol
-    rofi-wayland
-    slurp
-    waybar
+    rofi
     wget
-    wl-clipboard
     xclip
     xsel
     zsh
