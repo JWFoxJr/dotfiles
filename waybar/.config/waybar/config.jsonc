@@ -1,0 +1,95 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 24,
+  "spacing": 0,
+
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": [],
+  "modules-right": [
+    "custom/host",
+    "custom/session",
+    "cpu",
+    "memory",
+    "disk",
+    "pulseaudio",
+    "network",
+    "clock",
+    "custom/power"
+  ],
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "format": "{id}: {icon}",
+    "format-icons": {
+      "1": "term",
+      "2": "web",
+      "3": "code",
+      "4": "comms",
+      "5": "docs",
+      "default": ""
+    },
+    "persistent-workspaces": {
+      "*": 5
+    }
+  },
+
+  "custom/host": {
+    "exec": "hostnamectl --static 2>/dev/null || hostname",
+    "format": "󰌢 {}",
+    "interval": 3600,
+    "tooltip": false
+  },
+
+  "custom/session": {
+    "exec": "printf '%s' \"${XDG_SESSION_DESKTOP:-${XDG_CURRENT_DESKTOP:-Hyprland}}\"",
+    "format": "󰍹 {}",
+    "interval": 3600,
+    "tooltip": false
+  },
+
+  "cpu": {
+    "format": " {usage}%",
+    "interval": 5,
+    "tooltip": false
+  },
+
+  "memory": {
+    "format": " {used:0.1f}G",
+    "interval": 5,
+    "tooltip-format": "{used:0.1f}G used / {total:0.1f}G total"
+  },
+
+  "disk": {
+    "path": "/",
+    "format": "󰋊 / {free}",
+    "interval": 60,
+    "tooltip-format": "{used} used / {total} total"
+  },
+
+  "pulseaudio": {
+    "format": " {volume}%",
+    "format-muted": "󰝟 muted",
+    "scroll-step": 5,
+    "on-click": "pavucontrol"
+  },
+
+  "network": {
+    "format-ethernet": "󰈀 {ipaddr}",
+    "format-wifi": " {essid}",
+    "format-disconnected": "󰈂 down",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+    "interval": 5
+  },
+
+  "clock": {
+    "format": "{:%a %d %b %H:%M}",
+    "tooltip-format": "{:%A, %d %B %Y %H:%M:%S}"
+  },
+
+  "custom/power": {
+    "format": "",
+    "tooltip": "Power menu",
+    "on-click": "~/.config/waybar/scripts/power-menu"
+  }
+}

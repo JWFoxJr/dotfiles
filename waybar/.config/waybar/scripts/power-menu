@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+set -eu
+
+choice="$(printf 'lock\nlogout\nreboot\npoweroff' | rofi -dmenu -p 'power' -theme-str 'window { width: 18em; } listview { lines: 4; }' || true)"
+
+case "$choice" in
+  lock)
+    if command -v hyprlock >/dev/null 2>&1; then
+      hyprlock
+    elif command -v swaylock >/dev/null 2>&1; then
+      swaylock
+    else
+      loginctl lock-session
+    fi
+    ;;
+  logout)
+    hyprctl dispatch exit 0
+    ;;
+  reboot)
+    systemctl reboot
+    ;;
+  poweroff)
+    systemctl poweroff
+    ;;
+  *)
+    exit 0
+    ;;
+esac
