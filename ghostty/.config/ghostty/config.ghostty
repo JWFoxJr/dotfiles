@@ -4,7 +4,7 @@ font-size = 15
 
 # Theme
 theme = TokyoNight Night
-background-image = assets/Vyn-Auburn-Penthouse-4K.png
+background-image = assets/Vyn-Contemporary-Corrected-4K.png
 background-image-opacity = 0.35
 background-image-fit = cover
 background-image-position = center
