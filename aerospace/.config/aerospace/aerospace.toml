@@ -55,6 +55,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 
 on-window-detected = [
+  { if = 'test %{app-bundle-id} = com.nousresearch.hermes', run = 'move-node-to-workspace A' },
   { if = 'test %{app-bundle-id} = com.vivaldi.Vivaldi || test %{app-bundle-id} = com.microsoft.edgemac', run = [
     'move-node-to-workspace B',
     'layout accordion',
@@ -76,8 +77,9 @@ on-window-detected = [
   ] },
   { if = 'test %{app-bundle-id} = com.microsoft.Powerpoint', run = 'move-node-to-workspace S' },
   { if = 'test %{app-bundle-id} = com.mitchellh.ghostty', run = 'move-node-to-workspace T' },
+  { if = 'test %{app-bundle-id} = com.microsoft.VSCode', run = 'move-node-to-workspace V' },
   { if = 'test %{app-bundle-id} = com.vmware.fusion || test %{app-bundle-id} = com.parallels.desktop.console', run = [
-    'move-node-to-workspace V',
+    'move-node-to-workspace Z',
     'layout floating',
   ] },
   { if = 'test %{app-bundle-id} = com.microsoft.Word', run = 'move-node-to-workspace W' },
